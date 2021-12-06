@@ -19,6 +19,7 @@ import (
 	"Yearning-go/src/model"
 	"github.com/cookieY/yee"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -43,7 +44,7 @@ func SQLReferToOrder(c yee.Context) (err error) {
 	u.Status = 2
 	u.Time = time.Now().Format("2006-01-02")
 	u.CurrentStep = 1
-	u.Relevant = lib.JsonStringify([]string{u.Assigned})
+	u.Relevant = lib.JsonStringify(strings.Split(u.Assigned, ","))
 
 	model.DB().Create(u)
 	model.DB().Create(&model.CoreWorkflowDetail{

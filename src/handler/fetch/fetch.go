@@ -284,8 +284,8 @@ func RollBackSQLOrder(c yee.Context) (err error) {
 	u.Data.SQL = sql.String()
 	u.Data.CurrentStep = 1
 	u.Data.Time = time.Now().Format("2006-01-02")
-	u.Data.Relevant = lib.JsonStringify([]string{auditor[0]})
-	u.Data.Assigned = auditor[0]
+	u.Data.Relevant = lib.JsonStringify(auditor)
+	u.Data.Assigned = strings.Join(auditor, ",")
 	model.DB().Model(model.CoreSqlOrder{}).Create(&u.Data)
 	model.DB().Create(&model.CoreWorkflowDetail{
 		WorkId:   w,
